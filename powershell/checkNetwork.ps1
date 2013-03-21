@@ -14,6 +14,8 @@
 # Version History:
 # 	0.1
 # 	- initial version
+#   0.2
+#   - Powershell V2 compatibility
 #
 # Created by: gerhard.berthold@coi.de
 #
@@ -66,7 +68,8 @@ function Start-NetworkCheck {
             ping -n 1 $ip > $null;
             # handle ping failure
             if( -not $?) {
-                get-date -f s | tee-object -file $logfile -append
+                get-date -f s | tee-object -Variable tee 
+                out-file  $logfile -InputObject $tee -Append 
                 Write-Host -NoNewLine "$cnt | "
             }
             $cnt++
